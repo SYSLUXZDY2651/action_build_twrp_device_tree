@@ -36,7 +36,7 @@ jobs:
       run: |
         zip -r DeviceTree.zip ./dt
     - name: Upload to Release
-      uses: 
+      uses: Shopify/upload-to-release@v2.0.0
       with:
         name: TWRP_Device_Tree-${{ github.run_id }}
         path: ./DeviceTree.zip
