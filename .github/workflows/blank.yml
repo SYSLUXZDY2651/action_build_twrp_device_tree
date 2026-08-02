@@ -42,3 +42,4 @@ jobs:
         path: ./DeviceTree.zip
         content-type: application/octet-stream
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+      env: ${{ secrets.GITHUB_TOKEN }}
