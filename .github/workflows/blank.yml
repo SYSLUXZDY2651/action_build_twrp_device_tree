@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     
     steps:
     - name: Check Out
@@ -20,7 +20,7 @@ jobs:
     - name: Prepare the environment
       run: |
         sudo apt update
-        sudo apt -y install python python3 python-pip python3-pip cpio wget
+        sudo apt -y install python3 python3-pip cpio wget
         pip3 install twrpdtgen
         mkdir dt
       
@@ -36,12 +36,10 @@ jobs:
       run: |
         zip -r DeviceTree.zip ./dt
     - name: Upload to Release
-      uses: softprops/action-gh-release@v1
+      uses: Shopify/upload-to-release@v2.0.0
       with:
-        files: |
-          ./DeviceTree.zip
         name: TWRP_Device_Tree-${{ github.run_id }}
-        tag_name: ${{ github.run_id }}
-        body: DeviceTree for twrp
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        path: ./DeviceTree.zip
+        content-type: application/octet-stream
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+      env: ${{ secrets.GITHUB_TOKEN }}
